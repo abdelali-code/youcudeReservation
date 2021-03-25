@@ -8,8 +8,11 @@ public class TempUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastname;
+    @Column(name = "email")
     private String email;
     private String password;
     @Transient
@@ -70,5 +73,12 @@ public class TempUser {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+
+    /** create User from Temp User */
+    public User createUser(){
+        User user = new User(id, firstName, lastname, email, password);
+        return user;
     }
 }

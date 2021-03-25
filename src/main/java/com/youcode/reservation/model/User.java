@@ -15,8 +15,21 @@ public class User {
     private String lastname;
     private String email;
     private String password;
+    private int num_presence;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    public User() {}
+
+    public User(long id, String firstName, String lastname, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+    }
+
+
 
     public long getId() {
         return id;
@@ -64,5 +77,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getNum_presence() {
+        return num_presence;
+    }
+
+    public void setNum_presence(int num_presence) {
+        this.num_presence = num_presence;
     }
 }
