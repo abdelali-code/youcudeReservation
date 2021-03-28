@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <header th:fragment="header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary container" >
             <div class="container-fluid">
@@ -10,14 +11,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="isAuthenticated()">
                             <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="isAnonymous()">
                             <a class="nav-link" th:href="@{/singin}">singin</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" sec:authorize="isAnonymous()">
                             <a class="nav-link" th:href="@{/singup}">singup</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post">
+                                <button class="nav-link">logout</button>
+                            </form>
                         </li>
                     </ul>
                 </div>

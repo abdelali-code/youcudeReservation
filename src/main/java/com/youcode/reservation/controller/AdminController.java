@@ -25,9 +25,9 @@ public class AdminController {
 
         ReservationType reservationType = new ReservationType();
         model.addAttribute("reservation_type", reservationType);
-        model.addAttribute("waitUser", tempUserService.getALlTempUser());
+        model.addAttribute("tempUser", tempUserService.getALlTempUser());
         model.addAttribute("reservationTypeList", reservationTypeService.getAllReservationType());
-        return "index";
+        return "admin";
     }
 
     @PostMapping
@@ -39,10 +39,9 @@ public class AdminController {
         }
         else if (action.equals("accepter")) {
             System.out.println("accepeter");
-
-        }else if (action.equals("refuser")) {
+        }
+        else if (action.equals("refuser")) {
             System.out.println("refuser");
-
         }
         return "redirect:/admin";
     }

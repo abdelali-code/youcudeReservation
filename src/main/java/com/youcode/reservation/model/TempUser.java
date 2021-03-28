@@ -1,30 +1,46 @@
 package com.youcode.reservation.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "temp_users")
+@Table(name = "temp_users", uniqueConstraints= @UniqueConstraint(columnNames={"email"}))
 public class TempUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "firstname")
-    private String firstName;
-    @Column(name = "lastname")
+    @NotBlank(message = "firstname should not be empty")
+    @Size(min = 3, max = 45, message = "you firstname should be between 3 and 45 character")
+    private String firstname;
+    @NotBlank(message = "lastname should not be blanck")
+    @Size(min = 3, max = 45, message = "you lastname should be between 3 and 45 character")
     private String lastname;
-    @Column(name = "email")
+
+    @Size(max = 45, message = "your email is too tall")
+    @NotBlank(message = "email should not be empty")
+    @Email(message = "email is not valid")
+    @Column(name = "email", unique = true)
     private String email;
+
+    @Size(min = 6, max = 255, message = "password length should be 6 character or more")
     private String password;
+
     @Transient
     private String confirmPassword;
+
     private boolean is_valid = false;
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -78,7 +94,12 @@ public class TempUser {
 
     /** create User from Temp User */
     public User createUser(){
-        User user = new User(id, firstName, lastname, email, password);
+        User user = new User(id, firstname, lastname, email, password);
         return user;
+    }
+
+    /** compare password with the confirmPassword */
+    public boolean isPasswordConfirmed() {
+        return password.equals(confirmPassword);
     }
 }

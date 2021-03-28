@@ -40,6 +40,31 @@ header {
     border-radius: 5px;
 }
 
+.login-form-container {
+    max-width: 400px;
+    margin: 88px auto auto auto;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+.login-form-container form {
+    padding: 24px;
+    max-width: 375px;
+}
+
+.loginBody {
+    background-color: #eae9e9;
+}
+.inputError {
+    color: #f62323;
+    font-size: 14px;
+}
+
+
+.userslist {
+    margin: 32px 0px;
+    min-height: 250px;
+}
+
 
 
 /*

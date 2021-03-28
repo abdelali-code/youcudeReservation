@@ -1,13 +1,13 @@
 package com.youcode.reservation.controller;
 
 
-import com.youcode.reservation.model.Day;
-import com.youcode.reservation.model.Reservation;
-import com.youcode.reservation.model.ReservationType;
-import com.youcode.reservation.model.User;
+import com.youcode.reservation.model.*;
 import com.youcode.reservation.repository.ReservationTypeRepository;
 import com.youcode.reservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,11 +41,17 @@ public class HomeController {
 
      @PostMapping("/addReservation")
     public String addReservation(@ModelAttribute("reservation") Reservation reservation) {
-         System.out.println(reservation.getDay());
-         System.out.println(reservation.getReservationType());
-         LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(reservation.getDay()));
-         Date date1 = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-         System.out.println(date1);
-         return "redirect:/";
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         if (!(authentication instanceof AnonymousAuthenticationToken)) {
+             CustomUserDetails currentUser = (CustomUserDetails) authentication.getPrincipal();
+             System.out.println(currentUser.getUsername());
+             LocalDate localDate = LocalDate.now().with(TemporalAdjusters.next(reservation.getDay()));
+             Date date1 = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+             reservation.setDate(date1);
+             return "redirect:/";
+         }else {
+             return "redirect:/?msg=you are not log in";
+         }
+
      }
 }

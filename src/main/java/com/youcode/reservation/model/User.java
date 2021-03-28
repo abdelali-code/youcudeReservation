@@ -1,6 +1,11 @@
 package com.youcode.reservation.model;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -11,19 +16,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String firstName;
+    @NotBlank(message = "firstname should not be empty")
+    private String firstname;
+    @NotBlank(message = "lastname should not be blanck")
     private String lastname;
+    @NotBlank(message = "email should not be empty")
+    @Email(message = "email is not valid")
     private String email;
+    @Size(min = 6, message = "password length should be 6 character or more")
     private String password;
     private int num_presence;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
     public User() {}
 
     public User(long id, String firstName, String lastname, String email, String password) {
         this.id = id;
-        this.firstName = firstName;
+        this.firstname = firstName;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
@@ -39,12 +48,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {

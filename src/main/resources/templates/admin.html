@@ -16,22 +16,21 @@
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">is_verifier</th>
+                        <td scope="col">action</td>
                     </tr>
                     </thead>
-                    <tbody th:each="user : ${waitUser}">
+                    <tbody th:each="user : ${tempUser}">
                     <tr>
-                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.firstname}"></td>
                         <td th:text="${user.lastname}"></td>
                         <td th:text="${user.email}"></td>
-                        <td></td>
-                        <td></td>
-                        <td>
+                        <td th:text="${user.is_valid}"></td>
+                        <td class="d-flex" >
                             <form method="post" action="#" th:action="@{/admin?action=accepter}">
                                 <button class="btn btn-success">refuser</button>
                                <input type="hidden" th:value="${user.id}" name="id">
                             </form>
-                        </td>
-                        <td>
                             <form method="post" action="#" th:action="@{/admin?action=refuser}">
                                 <input type="hidden" th:value="${user.id}" name="id">
                                 <button class="btn btn-danger">refuser</button>
@@ -43,27 +42,27 @@
             </section>
             <section class="reservationType">
                 <h3>list of the reservation type here</h3>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">type Name</th>
-                        <th scope="col">Type Size</th>
-                    </tr>
-                    </thead>
-                    <tbody th:each="resType : ${reservationTypeList}">
-                    <tr>
-                        <td th:text="${resType.name}"></td>
-                        <td th:text="${resType.size}"></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <form>
-                                <button class="btn btn-success">Update</button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">type Name</th>
+                            <th scope="col">Type Size</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="resType : ${reservationTypeList}">
+                        <tr>
+                            <td th:text="${resType.name}"></td>
+                            <td th:text="${resType.size}"></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <form>
+                                    <button class="btn btn-success">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
             </section>
         </div>
 
