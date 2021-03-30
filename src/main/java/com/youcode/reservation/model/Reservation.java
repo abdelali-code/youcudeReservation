@@ -6,7 +6,7 @@ import java.util.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "reservation")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Reservation {
     @OneToOne
     private ReservationType reservationType;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private User user;
 
     private boolean is_accepted = false;

@@ -1,5 +1,7 @@
 package com.youcode.reservation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -28,6 +30,7 @@ public class TempUser {
     private String email;
 
     @Size(min = 6, max = 255, message = "password length should be 6 character or more")
+    @JsonIgnore
     private String password;
 
     @Transient

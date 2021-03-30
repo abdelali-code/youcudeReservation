@@ -65,6 +65,17 @@ header {
     min-height: 250px;
 }
 
+.logout {
+    background-color: inherit;
+    border: none;
+}
+
+.custom-alert {
+    color: white;
+    padding: 5px 0px 5px 5px;
+    margin-bottom: 15px;
+}
+
 
 
 /*

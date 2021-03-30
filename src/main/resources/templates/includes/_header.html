@@ -15,16 +15,16 @@
                             <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a class="nav-link" th:href="@{/singin}">singin</a>
+                            <a class="nav-link" th:href="@{/login}">login</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAnonymous()">
                             <a class="nav-link" th:href="@{/singup}">singup</a>
                         </li>
-                        <li class="nav-item" sec:authorize="isAuthenticated()">
-                            <form th:action="@{/logout}" method="post">
-                                <button class="nav-link">logout</button>
-                            </form>
-                        </li>
+                        <form th:action="@{/logout}" method="post">
+                            <li class="nav-item" sec:authorize="isAuthenticated()">
+                                <button class="nav-link logout" type="submit">logout</button>
+                            </li>
+                        </form>
                     </ul>
                 </div>
             </div>

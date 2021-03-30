@@ -1,15 +1,22 @@
 package com.youcode.reservation.services;
 
+import com.youcode.reservation.model.Role;
 import com.youcode.reservation.model.TempUser;
 import com.youcode.reservation.model.User;
+import com.youcode.reservation.repository.EmailRepository;
+import com.youcode.reservation.repository.RoleRepository;
 import com.youcode.reservation.repository.TempUserRepository;
+import net.bytebuddy.matcher.ElementMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TempUserService {
@@ -22,9 +29,42 @@ public class TempUserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private EmailRepository emailRepository;
+
     public TempUser addTempUser(TempUser tempUser) {
         tempUser.setPassword(passwordEncoder.encode(tempUser.getPassword()));
         return tempUserRepository.save(tempUser);
+    }
+
+    /** store temperary user in temp_user database table */
+    public String ajouterNewTempUser(TempUser tempUser, BindingResult bindingResult) {
+        /** check if email is a valid youcode email */
+        boolean isEmailValid = checkValidationOfEmail(tempUser.getEmail());
+        if (!isEmailValid) {
+            bindingResult.rejectValue("email", "emailIsNotValid","is not a valid youcoude email");
+            return "singup";
+        }
+        /** check if confirmed password is match password */
+        if (!tempUser.isPasswordConfirmed()) {
+            bindingResult.rejectValue("confirmPassword", "doesNotMatch","password does not match");
+            return "singup";
+        }
+        try {
+            addTempUser(tempUser);
+        }
+        catch (DataIntegrityViolationException e) {
+            bindingResult.rejectValue("email", "emailExist","email already exist");
+            return "singup";
+        }
+        return null;
+    }
+
+    private boolean checkValidationOfEmail(String email) {
+        return emailRepository.existsByEmail(email);
     }
 
     // get all temporary users
@@ -58,6 +98,11 @@ public class TempUserService {
     public void accepterUsersByIds(List<Long> ids) {
         List<TempUser> tempUserList = tempUserRepository.getAllByIdIn(ids);
         List<User> usersFrTempUser = getUserFromTempUser(tempUserList);
+        /** set a role */
+        Set<Role> roleSet = roleRepository.getRoleByName("user");
+        for (User user : usersFrTempUser) {
+            user.setRoles(roleSet);
+        }
         userService.saveAllUserIn(usersFrTempUser);
         tempUserRepository.deleteAll(tempUserList);
     }

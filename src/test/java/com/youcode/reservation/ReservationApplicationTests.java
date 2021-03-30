@@ -1,5 +1,6 @@
 package com.youcode.reservation;
 
+import com.youcode.reservation.repository.EmailRepository;
 import com.youcode.reservation.services.TempUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ class ReservationApplicationTests {
 
     @Autowired
     private TempUserService tempUserService;
+
+    @Autowired
+    private EmailRepository emailRepository;
 
     @Test
     void contextLoads() {
@@ -31,6 +35,15 @@ class ReservationApplicationTests {
     @Test
     void passwordLen() {
         System.out.println("$2a$10$eTmQR/IPlrHB1hCUrFhYxuFcVbW7SX3hic7bOTUIcLDd4rl9NmtQq".length());
+    }
+
+    @Test
+    void emailExist() {
+        assert emailRepository.existsByEmail("test@gmail.com") == true;
+    }
+    @Test
+    void emailDoesNotExist() {
+        assert emailRepository.existsByEmail("notValidEmail@gmail.com") == false;
     }
 
 }

@@ -7,6 +7,12 @@
     <div class="homePage">
         <div class="overlay">
             <div class="reservation">
+                <div th:if="${added}" class="alert-success custom-alert">
+                    <h3 th:text="${added}"></h3>
+                </div>
+                <div th:if="${reservationExist}" class="alert-success custom-alert">
+                    <h3 th:text="${reservationExist}"></h3>
+                </div>
                 <form th:object="${reservation}" class="reservation-form"  th:action="@{/addReservation}" method="post">
                     <div class="form-group">
                         <label class="form-label">reservation type</label>

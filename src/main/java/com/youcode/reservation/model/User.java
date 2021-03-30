@@ -1,5 +1,6 @@
 package com.youcode.reservation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -16,16 +17,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "firstname should not be empty")
+    @Size(min = 3, max = 45, message = "you firstname should be between 3 and 45 character")
     private String firstname;
-    @NotBlank(message = "lastname should not be blanck")
+    @Size(min = 3, max = 45, message = "you lastname should be between 3 and 45 character")
     private String lastname;
+    @Size(max = 45, message = "your email is too tall")
     @NotBlank(message = "email should not be empty")
     @Email(message = "email is not valid")
+    @Column(name = "email", unique = true)
     private String email;
-    @Size(min = 6, message = "password length should be 6 character or more")
+    @Size(min = 6, max = 255, message = "password length should be 6 character or more")
+    @JsonIgnore
     private String password;
     private int num_presence;
+
+    @Transient
+    private String confirmPassword;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
     public User() {}
@@ -94,5 +102,18 @@ public class User {
 
     public void setNum_presence(int num_presence) {
         this.num_presence = num_presence;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    /** compare password with the confirmPassword */
+    public boolean isPasswordConfirmed() {
+        return this.getPassword().equals(this.getConfirmPassword());
     }
 }

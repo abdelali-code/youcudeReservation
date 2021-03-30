@@ -23,9 +23,13 @@ public class ReservationTypeService {
         return reservationTypeRepository.findAll();
     }
 
-    public ReservationType updateReservationType(long id) {
-        ReservationType reservationType = reservationTypeRepository.getOne(id);
-        reservationType.setName("another name");
-        return reservationTypeRepository.save(reservationType);
+    public ReservationType updateReservationType(ReservationType reservationType) {
+        reservationTypeRepository.updateReservation(reservationType.getId(), reservationType.getName(), reservationType.getSize());
+        return reservationTypeRepository.findById(reservationType.getId()).get();
     }
+
+    public void deleteReservationType(List<Long> ids) {
+        reservationTypeRepository.deleteAllByIdIn(ids);
+    }
+
 }

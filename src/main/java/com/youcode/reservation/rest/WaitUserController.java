@@ -1,16 +1,14 @@
-package com.youcode.reservation.controller;
-
+package com.youcode.reservation.rest;
 
 import com.youcode.reservation.model.TempUser;
 import com.youcode.reservation.services.TempUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class RestAdminController {
+public class WaitUserController {
 
     @Autowired
     private TempUserService tempUserService;
