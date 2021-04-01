@@ -5,6 +5,7 @@ import com.youcode.reservation.model.*;
 import com.youcode.reservation.repository.ReservationRepository;
 import com.youcode.reservation.repository.ReservationTypeRepository;
 import com.youcode.reservation.services.ReservationService;
+import com.youcode.reservation.services.ReservationTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,19 +24,18 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private ReservationTypeRepository reservationTypeRepository;
-
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private ReservationTypeService reservationTypeService;
 
     @Autowired
     private ReservationService reservationService;
 
      @GetMapping("/")
     public String home(Model model) {
-         Reservation reservation = new Reservation();
-        List<ReservationType> reservationTypeList = reservationTypeRepository.findAll();
-        model.addAttribute("reser_list", reservationTypeList);
+        Reservation reservation = new Reservation();
+       // List<ReservationType> reservationTypeList = reservationTypeRepository.findAll();
+         List<ReservationType> reservationTypeList = reservationTypeService.getAll();
+
+         model.addAttribute("reser_list", reservationTypeList);
         model.addAttribute("reservation", reservation);
         model.addAttribute("days", DayOfWeek.values());
          return "home";

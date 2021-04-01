@@ -22,8 +22,6 @@ public class WaitUserController {
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/waitUsers")
     public boolean deleteUsers(@RequestBody List<Long> ids) {
-        System.out.println(ids.size());
-        System.out.println(ids.toString());
         for (long i: ids) {
             System.out.println(i);
         }
@@ -38,4 +36,6 @@ public class WaitUserController {
         tempUserService.accepterUsersByIds(ids);
         return true;
     }
+
+
 }

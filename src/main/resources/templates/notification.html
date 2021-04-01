@@ -1,0 +1,18 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="includes/_head"></head>
+<header th:replace="includes/_header"></header>
+<body>
+    <main>
+        <div class="container fixed-container">
+            <h2>Notification</h2>
+            <div class="single-notification" th:each="notf: ${notifications}">
+                <div th:text="${notf.content}" class="notification"></div>
+            </div>
+        </div>
+    </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
+

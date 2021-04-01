@@ -1,10 +1,13 @@
 package com.youcode.reservation;
 
+import com.youcode.reservation.controller.AcceptedReservationController;
 import com.youcode.reservation.repository.EmailRepository;
+import com.youcode.reservation.services.ReservationService;
 import com.youcode.reservation.services.TempUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,11 @@ class ReservationApplicationTests {
     @Autowired
     private EmailRepository emailRepository;
 
+    @Autowired
+    private ReservationService reservationService;
+
+    @Autowired
+    private AcceptedReservationController acceptedReservationController;
     @Test
     void contextLoads() {
     }
@@ -44,6 +52,16 @@ class ReservationApplicationTests {
     @Test
     void emailDoesNotExist() {
         assert emailRepository.existsByEmail("notValidEmail@gmail.com") == false;
+    }
+
+    @Test
+    void setAcceptedReservationControllertest () {
+        acceptedReservationController.accptedReservation(null);
+    }
+
+    @Test
+    void getReservationByReservationType() {
+        reservationService.getReservationByReservationType();
     }
 
 }

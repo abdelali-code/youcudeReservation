@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -41,9 +42,6 @@ public class RestReservationTypeController {
     @CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.PUT)
     @PutMapping("/reservationType")
     public void updateReservationType(@RequestBody ReservationType reservationType) {
-        System.out.println(reservationType.getName());
-        System.out.println(reservationType.getId());
-        System.out.println(reservationType.getSize());
         reservationTypeService.updateReservationType(reservationType);
     }
 

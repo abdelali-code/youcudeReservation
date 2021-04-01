@@ -1,5 +1,10 @@
 header {
-    background-color: #0D6EFD;
+    background-color: #1d2539;
+    color: white;
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+    color: white;
 }
 
 .navbar-nav {
@@ -8,7 +13,7 @@ header {
 .homePage {
     width: 100%;
     height: calc(100vh - 56px);
-    background-image: url("/images/index.jpeg");
+    /*background-image: url("/images/index.jpeg");*/
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -18,7 +23,7 @@ header {
     right: 0;
     width: 100%;
     height: 100%;
-    background-color: #222;
+    /*background-color: #222;*/
     opacity: 0.7;
     display: flex;
     align-items: center;
@@ -35,7 +40,7 @@ header {
 
 .reservation-form {
     padding: 20px;
-    background-color: white;
+    background-color: #cdcaca;
     width: 375px;
     border-radius: 5px;
 }
@@ -75,6 +80,56 @@ header {
     padding: 5px 0px 5px 5px;
     margin-bottom: 15px;
 }
+
+.fixed-container {
+    max-width: 500px;
+    margin: auto;
+    background-color: #c4c4c4;
+    padding: 20px;
+    min-height: 800px;
+}
+
+.fixed-container h2 {
+    margin: 20px 0px;
+
+}
+
+.notification {
+    padding: 15px;
+    font-size: 16px;
+}
+
+.single-notification:nth-child(even) {
+    background-color: #e8e8e8;
+}
+
+.single-notification:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+/** profile page */
+/*.mainProfile {*/
+/*    background-color: #222222;*/
+/*}*/
+
+#profilePage {
+    background-color: #0d0f12;
+}
+.mainProfile .profile {
+    max-width: 450px;
+    min-height: 400px;
+    padding: 20px;
+    margin: 32px auto;
+}
+
+.profilePage {
+    background-color: #222222;
+}
+
+hr {
+    color: white;
+}
+/** end profile page */
 
 
 

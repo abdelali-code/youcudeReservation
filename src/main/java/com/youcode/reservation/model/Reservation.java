@@ -15,12 +15,15 @@ public class Reservation {
     @Temporal(TemporalType.DATE)
     private Date date;
     @OneToOne
+    @JoinColumn(name = "reservation_type_id")
     private ReservationType reservationType;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    private boolean is_accepted = false;
+    @Column(name = "is_accepted")
+    private boolean isAccepted = false;
 
     @Transient
     private DayOfWeek day;
@@ -49,12 +52,12 @@ public class Reservation {
         this.user = user;
     }
 
-    public boolean isIs_accepted() {
-        return is_accepted;
+    public boolean isAccepted() {
+        return isAccepted;
     }
 
-    public void setIs_accepted(boolean is_accepted) {
-        this.is_accepted = is_accepted;
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
     }
 
     public Date getDate() {

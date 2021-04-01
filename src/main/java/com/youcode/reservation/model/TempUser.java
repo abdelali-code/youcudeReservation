@@ -16,22 +16,20 @@ public class TempUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "firstname should not be empty")
     @Size(min = 3, max = 45, message = "you firstname should be between 3 and 45 character")
     private String firstname;
-    @NotBlank(message = "lastname should not be blanck")
     @Size(min = 3, max = 45, message = "you lastname should be between 3 and 45 character")
     private String lastname;
-
     @Size(max = 45, message = "your email is too tall")
     @NotBlank(message = "email should not be empty")
     @Email(message = "email is not valid")
     @Column(name = "email", unique = true)
     private String email;
-
     @Size(min = 6, max = 255, message = "password length should be 6 character or more")
     @JsonIgnore
     private String password;
+    @Column(name = "num_presence")
+    private int numPresence;
 
     @Transient
     private String confirmPassword;

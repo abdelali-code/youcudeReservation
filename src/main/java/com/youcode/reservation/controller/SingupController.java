@@ -1,6 +1,8 @@
 package com.youcode.reservation.controller;
 
+import com.youcode.reservation.model.TempUser;
 import com.youcode.reservation.model.User;
+import com.youcode.reservation.services.TempUserService;
 import com.youcode.reservation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,19 +23,21 @@ public class SingupController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TempUserService tempUserService;
+
     @GetMapping
-    public String getSingup(@ModelAttribute("user") User user) {
+    public String getSingup(@ModelAttribute("user") TempUser user) {
         return "singup";
     }
 
     @PostMapping
-    public String addUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String addUser(@Valid @ModelAttribute("user") TempUser user, BindingResult bindingResult) {
         /** check for erros */
         if (bindingResult.hasErrors()) {
             return "singup";
         }
-        /** check if confirmed password is match password */
-        String result = userService.ajouterNewTempUser(user, bindingResult);
+        String result = tempUserService.ajouterNewTempUser(user, bindingResult);
         if (result == null) {
             return "redirect:/login";
         }else {

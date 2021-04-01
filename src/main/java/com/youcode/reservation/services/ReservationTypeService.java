@@ -32,4 +32,8 @@ public class ReservationTypeService {
         reservationTypeRepository.deleteAllByIdIn(ids);
     }
 
+
+    public List<ReservationType> getAll() {
+        return reservationTypeRepository.findAll();
+    }
 }

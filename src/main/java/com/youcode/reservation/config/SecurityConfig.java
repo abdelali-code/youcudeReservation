@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/","/admin", "/api/**")
+                .mvcMatchers("/","/admin", "/api/**")
                 .permitAll();
         http
                 .logout()
@@ -33,16 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        static ressource
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/images/**")
+                .mvcMatchers("/css/**", "/images/**")
                 .permitAll();
+
+        http.csrf().ignoringAntMatchers("/api/**");
 
         http.cors()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
-                .permitAll()
-                .and()
-                .csrf().disable();
+                .permitAll();
     }
 
     @Bean

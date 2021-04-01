@@ -29,7 +29,8 @@ public class User {
     @Size(min = 6, max = 255, message = "password length should be 6 character or more")
     @JsonIgnore
     private String password;
-    private int num_presence;
+    @Column(name = "num_presence")
+    private int numPresence;
 
     @Transient
     private String confirmPassword;
@@ -96,12 +97,12 @@ public class User {
         this.roles = roles;
     }
 
-    public int getNum_presence() {
-        return num_presence;
+    public int getNumPresence() {
+        return numPresence;
     }
 
-    public void setNum_presence(int num_presence) {
-        this.num_presence = num_presence;
+    public void setNumPresence(int numPresence) {
+        this.numPresence = numPresence;
     }
 
     public String getConfirmPassword() {
