@@ -1,6 +1,7 @@
 package com.youcode.reservation.services;
 
 
+import com.youcode.reservation.gravatarGenerator.Gravatar;
 import com.youcode.reservation.model.Email;
 import com.youcode.reservation.model.TempUser;
 import com.youcode.reservation.model.User;
@@ -34,8 +35,39 @@ public class UserService {
     }
 
     public void saveAllUserIn(List<User> users) {
+        /** generate gravatar */
+        for (User user: users) {
+            String gravatar = Gravatar.md5Hex(user.getEmail());
+            user.setGravatar(gravatar);
+        }
         userRepository.saveAll(users);
     }
+
+    private boolean checkValidationOfEmail(String email) {
+        return emailRepository.existsByEmail(email);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /** store temperary user in temp_user database table */
     public String ajouterNewTempUser(User user, BindingResult bindingResult) {
@@ -60,7 +92,7 @@ public class UserService {
         return null;
     }
 
-    private boolean checkValidationOfEmail(String email) {
-        return emailRepository.existsByEmail(email);
-    }
+
+
+
 }

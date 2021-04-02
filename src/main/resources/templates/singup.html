@@ -5,46 +5,50 @@
 <header th:replace="includes/_header"></header>
 <body class="loginBody">
 <div class="container">
-    <div class="login-form-container">
-        <form action="#" th:action="@{/singup}" method="post" th:object="${user}">
-            <h2 class="text-center mb-4">Sign up</h2>
-            <div class="form-group">
-                <label class="form-label" for="firstname">First Name</label>
-                <input type="text" th:field="*{firstname}" class="form-control"/>
-                <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="inputError"></p>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="lastname">Last Name</label>
-                <input type="text" th:field="*{lastname}" class="form-control"/>
-                <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="inputError"></p>
+    <section class="login-main-container">
+        <div class="login-form-container">
+            <form th:action="@{/singup}" method="post" th:object="${user}" class="singUpForm">
+<!--                <h2 class="text-center mb-4">Sign up</h2>-->
+                <div class="form-group">
+                    <label class="form-label formLoginLabel" for="firstname">First Name</label>
+                    <input type="text" th:field="*{firstname}" class="form-control"/>
+                    <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" class="inputError"></p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label formLoginLabel" for="lastname">Last Name</label>
+                    <input type="text" th:field="*{lastname}" class="form-control"/>
+                    <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" class="inputError"></p>
 
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="email">Email</label>
-                <input type="email" th:field="*{email}" class="form-control"/>
-                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="inputError"></p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label formLoginLabel" for="email">Email</label>
+                    <input type="email" th:field="*{email}" class="form-control"/>
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="inputError"></p>
 
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="password">Password</label>
-                <input type="password" th:field="*{password}" class="form-control"/>
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="inputError"></p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label formLoginLabel" for="password">Password</label>
+                    <input type="password" th:field="*{password}" class="form-control"/>
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="inputError"></p>
 
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="confirmPassword">Confirm Password</label>
-                <input type="password" th:field="*{confirmPassword}" class="form-control"/>
-                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="inputError"></p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label formLoginLabel" for="confirmPassword">Confirm Password</label>
+                    <input type="password" th:field="*{confirmPassword}" class="form-control"/>
+                    <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="inputError"></p>
 
-            </div>
+                </div>
 
-            <div class="form-group text-center">
-                <button type="submit" class="btn btn-primary mt-4">Register</button>
-            </div>
-        </form>
-    </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn full-width main-color mt-4">Register</button>
+                </div>
+            </form>
+            <div>Already have an account? <a th:href="@{/login}">Login</a></div>
+
+        </div>
+    </section>>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<!--<footer th:replace="includes/_footer"></footer>-->
 </body>
 </html>
 

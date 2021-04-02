@@ -1,11 +1,18 @@
+body {
+    background-color: #e8e8e8;
+}
 header {
-    background-color: #1d2539;
-    color: white;
+    background-color: #ffffff;
+    color: #222222;
 }
 
-.navbar .navbar-brand, .navbar .nav-link {
-    color: white;
+.dropdown-item a{
+    color: #212529 !important;
 }
+
+/*.navbar .navbar-brand, .navbar .nav-link {*/
+/*    color: white;*/
+/*}*/
 
 .navbar-nav {
     margin-left: auto;
@@ -45,23 +52,10 @@ header {
     border-radius: 5px;
 }
 
-.login-form-container {
-    max-width: 400px;
-    margin: 88px auto auto auto;
-    background-color: #ffffff;
-    border-radius: 5px;
-}
-.login-form-container form {
-    padding: 24px;
-    max-width: 375px;
-}
 
-.loginBody {
-    background-color: #eae9e9;
-}
 .inputError {
     color: #f62323;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 
@@ -107,24 +101,7 @@ header {
     background-color: #ffffff;
 }
 
-/** profile page */
-/*.mainProfile {*/
-/*    background-color: #222222;*/
-/*}*/
 
-#profilePage {
-    background-color: #0d0f12;
-}
-.mainProfile .profile {
-    max-width: 450px;
-    min-height: 400px;
-    padding: 20px;
-    margin: 32px auto;
-}
-
-.profilePage {
-    background-color: #222222;
-}
 
 hr {
     color: white;
@@ -132,12 +109,111 @@ hr {
 /** end profile page */
 
 
+/*login*/
+
+.loginBody {
+    background-color: #e8e8e8;
+}
+.login-main-container {
+    height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.login-form-container {
+    width: 300px;
+}
+
+.facebookLogin, .githubLogin, .googleLogin {
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+}
+.facebookLogin {
+    background-color: #314a86;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.facebookLogin a {
+    color: white;
+}
+.githubLogin {
+    background-color: #242729;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.githubLogin a {
+    color: white;
+}
+.googleLogin {
+    background-color: #ffffff;
+    margin-bottom: 10px;
+}
+.googleLogin a {
+    color: #222222;
+}
+.loginForm, .singUpForm, .profileForm {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+.passwordLabelContainer {
+    width: 100%;
+    display: flex;
+}
+.formLoginLabel{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.forgotPasswordLink {
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.loginForm .form-control, .singUpForm .form-control {
+    margin-bottom: 15px;
+}
+/*end login*/
+
+
+/* password page */
+
+.profile {
+    max-width: 375px;
+    margin: auto;
+}
+/* end password page */
+
+/* navbar */
+.navDropMenu, #profileDropdown {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #c4c4c4;
+}
+
+#profileDropdown img {
+    margin: auto;
+}
+
+
+    /* end navbar */
 
 /*
 general rules
  */
 
+
+.full-width {
+    width: 100%;
+}
+
 .main-color {
-    background-color: #067eec;
+    background-color: #0077cc;
     color: #ffffff;
 }

@@ -3,32 +3,32 @@
 <html lang="en">
 <head th:replace="includes/_head"></head>
 <header th:replace="includes/_header"></header>
-<body id="profilePage">
+<body>
     <main class="mainProfile">
         <div class="container">
             <div class="profile">
                 <div class="text-center">
-                    <img src="/images/index.jpeg" alt="profile_image" width="72" height="64">
+                    <img th:src="@{${user.gravatar}}" alt="profile_image">
                 </div>
                 <hr/>
-                <form th:object="${user}" method="post">
+                <form th:object="${user}" method="post" class="profileForm" th:action="@{/profile/update}">
                     <div class="form-group">
-                        <label class="form-label">First Name</label>
+                        <label class="form-label formLoginLabel">First Name</label>
                         <input class="form-control" th:field="*{firstname}">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Last Name</label>
+                        <label class="form-label formLoginLabel">Last Name</label>
                         <input class="form-control" th:field="*{lastname}">
                     </div>
                     <div class="form-group text-center">
-                        <button name="submit" type="submit" class="btn main-color mt-4">Update</button>
+                        <button name="submit" type="submit" class="btn main-color full-width mt-4">Update</button>
                     </div>
                 </form>
 
             </div>
         </div>
     </main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<!--    <footer th:replace="includes/_footer"></footer>-->
 </body>
 </html>
 

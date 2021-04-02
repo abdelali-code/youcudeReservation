@@ -32,6 +32,9 @@ public class User {
     @Column(name = "num_presence")
     private int numPresence;
 
+    @Column(name = "gravatar")
+    private String gravatar;
+
     @Transient
     private String confirmPassword;
 
@@ -116,5 +119,13 @@ public class User {
     /** compare password with the confirmPassword */
     public boolean isPasswordConfirmed() {
         return this.getPassword().equals(this.getConfirmPassword());
+    }
+
+    public String getGravatar() {
+        return gravatar;
+    }
+
+    public void setGravatar(String gravatar) {
+        this.gravatar = gravatar;
     }
 }

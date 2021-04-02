@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -28,8 +29,21 @@ public class USerProfile {
             return "login";
         }
         CustomUserDetails currentUser = (CustomUserDetails) authentication.getPrincipal();
-        User user = userRepository.findById(currentUser.getUser().getId()).get();
+//        User user = userRepository.findById(currentUser.getUser().getId()).get();
+        User user = currentUser.getUser();
+        String gravatarUrl = "https://www.gravatar.com/avatar/" + user.getGravatar() + "?d=robohash&s=150";
+        user.setGravatar(gravatarUrl);
         model.addAttribute("user", user);
         return "profile";
+    }
+    @PostMapping("/update")
+    public String updateProfile(@ModelAttribute("user") User user) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login";
+        }
+        CustomUserDetails currentUser = (CustomUserDetails) authentication.getPrincipal();
+
+        return "redirect:/profile";
     }
 }

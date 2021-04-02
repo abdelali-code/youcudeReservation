@@ -12,25 +12,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.Access;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/notification")
 public class NotificationController {
 
     @Autowired
     private NotificationRepository notificationRepository;
     @GetMapping
-    public String getNotification(Model model) {
+    public List<Notification> getNotification(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null || !(authentication instanceof AnonymousAuthenticationToken)) {
             CustomUserDetails currentUserDetails = (CustomUserDetails) authentication.getPrincipal();
             List<Notification> notificationList = notificationRepository.findAllByUserId(currentUserDetails.getUser().getId());
-            model.addAttribute("notifications", notificationList);
-            return "notification";
+//            model.addAttribute("notifications", notificationList);
+//            return "notification";
+            return notificationList;
         }
-        return "redirect:/login";
+        else throw new RuntimeException("you are not authorised");
     }
 }

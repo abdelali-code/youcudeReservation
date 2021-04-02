@@ -1,13 +1,13 @@
 package com.youcode.reservation;
 
 import com.youcode.reservation.controller.AcceptedReservationController;
+import com.youcode.reservation.gravatarGenerator.Gravatar;
 import com.youcode.reservation.repository.EmailRepository;
 import com.youcode.reservation.services.ReservationService;
 import com.youcode.reservation.services.TempUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,10 @@ class ReservationApplicationTests {
 
     @Autowired
     private AcceptedReservationController acceptedReservationController;
+
+    @Autowired
+    private Gravatar gravatar;
+
     @Test
     void contextLoads() {
     }
@@ -64,4 +68,14 @@ class ReservationApplicationTests {
         reservationService.getReservationByReservationType();
     }
 
+    @Test
+    void testGravatar() {
+        String email = "exemple@gmail.com";
+        String hash = gravatar.md5Hex(email);
+        //923d10bc97028030e8e67e7db62658d1
+        //923d10bc97028030e8e67e7db62658d1
+
+        //https://www.gravatar.com/avatar/923d10bc97028030e8e67e7db62658d1?d=robohash
+        System.out.println(hash);
+    }
 }
