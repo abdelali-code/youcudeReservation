@@ -1,57 +1,48 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="includes/_head"></head>
-<header th:replace="includes/_header"></header>
-<body class="loginBody">
-<div class="container">
-    <section class="login-main-container">
-        <div class="login-form-container">
-            <!--            facebook login-->
-            <div class="facebookLogin">
-                <a class="btn">facebook</a>
-            </div>
-            <div class="googleLogin">
-                <a class="btn">google</a>
-            </div>
-            <div class="githubLogin">
-                <a class="btn">github</a>
-            </div>
-            <form method="post" th:action="@{/login}" class="loginForm">
-                <div th:if="${param.error}">
-                    <div class="alert alert-danger">
-                        Invalid username or password.
-                    </div>
-                </div>
-                <div th:if="${param.logout}">
-                    <div class="alert alert-info">
-                        You have been logged out.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="email">
-                        <div class="formLoginLabel">Email</div>
-                    </label>
-                    <input type="email" name="email" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="password">
-                        <div class="passwordLabelContainer">
-                            <div class="formLoginLabel">Password</div>
-                            <a th:href="@{/}" class="forgotPasswordLink">forgot Password ?</a>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <title>login....</title>
+        <th:block th:include="shared/general.html :: headFile"/>
+    </head>
+    <body>
+        <header th:replace="shared/general.html :: header"> </header>
+        <main id="mainLogin">
+            <div class="Logincontainer">
+                <div class="formContainer">
+                    <form method="post" th:action="@{/login}">
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username or password.
+                            </div>
                         </div>
-                    </label>
-                    <input type="password" name="password" class="form-control"/>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                You have been logged out.
+                            </div>
+                        </div>
+                        <div class="alert alert-success" th:if="${singupSucces}" th:text="${singupSucces}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label textBold" for="loginemail">Email</label>
+                            <input class="form-control" type="email" id="loginemail" name="email" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label textBold d-flex" for="Loginpassword">
+                                Password
+                                <a th:href="@{/password/reset}" class="forgotPassword">forgot password?</a>
+                            </label>
+                            <input class="form-control" type="password" id="Loginpassword" name="password" placeholder="password">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn full-width main-background mt-3">Login</button>
+                        </div>
+                        <div class="form-group mt-2">
+                            <p class="checkIfExist">Dont have an account? <a th:href="@{/singup}">Sing up</a></p>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn main-color mt-3 full-width">Login</button>
-                </div>
-            </form>
-            <div>Don’t have an account? <a th:href="@{/singup}">Sign up</a></div>
-        </div>
-    </section>
-</div>
-<!--<footer th:replace="includes/_footer"></footer>-->
-</body>
+            </div>
+        </main>
+        <footer th:replace="shared/general.html :: footer" class="text-center"></footer>
+    </body>
 </html>
-
-

@@ -24,8 +24,15 @@ public class ReservationTypeService {
     }
 
     public ReservationType updateReservationType(ReservationType reservationType) {
-        reservationTypeRepository.updateReservation(reservationType.getId(), reservationType.getName(), reservationType.getSize());
-        return reservationTypeRepository.findById(reservationType.getId()).get();
+//        reservationTypeRepository.updateReservation(reservationType.getId(), reservationType.getName(), reservationType.getSize());
+//        return reservationTypeRepository.findById(reservationType.getId()).get();
+        ReservationType reservationTypeTarget = reservationTypeRepository.findById(reservationType.getId()).get();
+        if (reservationTypeTarget != null) {
+            reservationTypeTarget.setSize(reservationType.getSize());
+            reservationTypeTarget.setName(reservationType.getName());
+            reservationTypeRepository.saveAndFlush(reservationTypeTarget);
+        }
+        return reservationTypeTarget;
     }
 
     public void deleteReservationType(List<Long> ids) {
@@ -35,5 +42,14 @@ public class ReservationTypeService {
 
     public List<ReservationType> getAll() {
         return reservationTypeRepository.findAll();
+    }
+
+    public void deleteReservationById(long id) {
+        reservationTypeRepository.deleteById(id);
+    }
+
+
+    public ReservationType getReservationType(long id) {
+        return reservationTypeRepository.findById(id).get();
     }
 }

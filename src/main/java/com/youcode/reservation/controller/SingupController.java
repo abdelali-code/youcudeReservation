@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 
 
@@ -32,13 +34,14 @@ public class SingupController {
     }
 
     @PostMapping
-    public String addUser(@Valid @ModelAttribute("user") TempUser user, BindingResult bindingResult) {
+    public String addUser(@Valid @ModelAttribute("user") TempUser user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         /** check for erros */
         if (bindingResult.hasErrors()) {
             return "singup";
         }
         String result = tempUserService.ajouterNewTempUser(user, bindingResult);
         if (result == null) {
+            redirectAttributes.addFlashAttribute("singupSucces", "you accound is added, wait for admin to accept you, then you can log in");
             return "redirect:/login";
         }else {
             return result;

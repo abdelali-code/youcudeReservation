@@ -1,120 +1,50 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
-
-<header th:include="~{includes/_head :: head}"></header>
-
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>admin</title>
+    <th:block th:include="shared/general.html :: headFile"/>
+</head>
 <body>
-<header th:replace="~{includes/_header :: header}"></header>
-    <main>
-        <div class="container">
-            <nav th:replace="~{includes/_admin_navigation :: admin-navigation}"></nav>
-            <section class="userslist">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">is_verifier</th>
-                        <td scope="col">action</td>
-                    </tr>
-                    </thead>
-                    <tbody th:each="user : ${tempUser}">
-                    <tr>
-                        <td th:text="${user.firstname}"></td>
-                        <td th:text="${user.lastname}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.is_valid}"></td>
-                        <td class="d-flex" >
-                            <form method="post" action="#" th:action="@{/admin?action=accepter}">
-                                <button class="btn btn-success">refuser</button>
-                               <input type="hidden" th:value="${user.id}" name="id">
-                            </form>
-                            <form method="post" action="#" th:action="@{/admin?action=refuser}">
-                                <input type="hidden" th:value="${user.id}" name="id">
-                                <button class="btn btn-danger">refuser</button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </section>
-            <section class="reservationType">
-                <h3>list of the reservation type here</h3>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">type Name</th>
-                            <th scope="col">Type Size</th>
-                        </tr>
-                        </thead>
-                        <tbody th:each="resType : ${reservationTypeList}">
-                        <tr>
-                            <td th:text="${resType.name}"></td>
-                            <td th:text="${resType.size}"></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <form>
-                                    <button class="btn btn-success">Update</button>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-            </section>
-        </div>
-
-
-<!--    add reservation type modal-->
-        <div class="modal fade" id="addReservationType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">add New Reservation Type</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" th:action="@{/admin?action=addType}" method="post" th:object="${reservation_type}">
-                            <div class="mb-3">
-                                <label for="name" class="col-form-label">Name</label>
-                                <input type="text" th:field="*{name}" class="form-control"/>
-                            </div>
-                            <div class="mb-3">
-                                <label for="size" class="col-form-label">Reservation Size</label>
-                                <input type="number" th:field="*{size}" class="form-control"/>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Send message</button>
-                            </div>
+<header th:replace="shared/general.html :: header"> </header>
+<main class="pageMain ">
+    <div class="container">
+        <nav th:replace="shared/adminTemplate.html :: adminHeader"></nav>
+        <div class="">
+            <table class="table mt-4">
+                <thead class="table-head">
+                <tr>
+                    <th scope="col" class="p-2">firstname</th>
+                    <th scope="col" class="p-2">lastname</th>
+                    <th scope="col" class="p-2">email</th>
+                    <th scope="col">action</th>
+                </tr>
+                </thead>
+                <tbody th:each="user : ${tempUser}" class="table-body">
+                <tr>
+                    <td th:text="${user.firstname}"></td>
+                    <td th:text="${user.lastname}">Otto</td>
+                    <td th:text="${user.email}"></td>
+                    <td class="d-flex">
+                        <form method="POST" th:action="@{admin-dashboard/accepter}">
+                            <input type="hidden" th:value="${user.id}" name="id"/>
+                            <button type="submit" class="btn check"><i class="fas fa-check"></i></button>
                         </form>
-                    </div>
+                        <form method="post" th:action="@{/admin-dashboard/refuser}">
+                            <input type="hidden" th:value="${user.id}" name="id"/>
+                            <button type="submit" class="btn remove">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
 
-                </div>
-            </div>
+                </tbody>
+            </table>
         </div>
-<!--        end modal reservation type -->
-    </main>
-<footer th:replace="includes/_footer"></footer>
+    </div>
+</main>
+<footer th:replace="shared/general.html :: footer" class="text-center"></footer>
 </body>
 </html>
 
-<!--<head>-->
-<!--    <meta charset="utf-8" />-->
 
-<!--    <title>Hello React!</title>-->
-
-<!--    <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>-->
-<!--    <script src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>-->
-<!--    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>-->
-<!--</head>-->
-
-<!--<body>-->
-<!--<div id="root"></div>-->
-
-<!--<script type="text/babel" src=""></script>-->
-<!--</body>-->
-<!--</html>-->

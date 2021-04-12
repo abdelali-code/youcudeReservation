@@ -9,6 +9,8 @@ import com.youcode.reservation.repository.ReservationRepository;
 import com.youcode.reservation.repository.ReservationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -36,8 +38,9 @@ public class ReservationService {
             Date date1 = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             reservation.setDate(date1);
             reservation.setUser(currentUser.getUser());
-            Reservation isReservationExist = reservationRepository.findByDateAndAndReservationType(date1, reservation.getReservationType());
-            /** if isReservationExist equal null */
+            //Reservation isReservationExist = reservationRepository.findByDateAndAndReservationType(date1, reservation.getReservationType());
+            Reservation isReservationExist = reservationRepository.findByDateAndUserAndReservationType(date1, reservation.getUser(), reservation.getReservationType());
+        /** if isReservationExist equal null */
             if (isReservationExist == null) {
                 reservationRepository.save(reservation);
                 return true;
@@ -82,6 +85,7 @@ public class ReservationService {
         for (List<Reservation> reservationList : listListReservation) {
             for (Reservation reservation : reservationList) {
                 reservation.setAccepted(true);
+                reservation.getUser().setNumPresence(reservation.getUser().getNumPresence() + 1);
                 reservationRepository.saveAndFlush(reservation);
                 /** store a notification for the current user to tell that his/her reservation is accepted */
                 String message = "Your reservation for " + reservation.getDate() + " is accepted for " + reservation.getReservationType().getName();
@@ -105,5 +109,44 @@ public class ReservationService {
     /** find all reservation */
     public List<Reservation> getAll() {
         return reservationRepository.findAll();
+    }
+
+    /** find all greater than today historique */
+    public List<Reservation> getAllLessThanToday() {
+        LocalDate localDate = LocalDate.now();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return reservationRepository.findAllByDateLessThan(date);
+    }
+
+    /** get today reservation */
+    public List<Reservation> getTodayReservation() {
+        LocalDate localDate = LocalDate.now();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return reservationRepository.getAllByDateEquals(date);
+    }
+
+    /** find all reservation that it's date greater than or equal to today date */
+    public List<Reservation> getAllResGreaterOrEqualToday() {
+        LocalDate localDate = LocalDate.now();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return reservationRepository.findAllByDateGreaterThanOrDateEquals(date, date);
+    }
+
+    /** accepter a reservation */
+    @Transactional
+    public void accepterReservation(long id) {
+        Reservation reservation = reservationRepository.findById(id).get();
+        if (reservation != null) {
+            reservation.setAccepted(true);
+            reservationRepository.saveAndFlush(reservation);
+            reservation.getUser().setNumPresence(reservation.getUser().getNumPresence()+1);
+            String message = "Your reservation for " + reservation.getDate() + " is accepted for " + reservation.getReservationType().getName();
+            Notification notification = new Notification(message, reservation.getUser());
+            notificationRepository.save(notification);
+        }
+    }
+
+    public void removeReservation(long id) {
+        reservationRepository.deleteById(id);
     }
 }

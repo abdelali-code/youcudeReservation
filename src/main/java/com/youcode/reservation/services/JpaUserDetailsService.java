@@ -38,7 +38,8 @@ public class JpaUserDetailsService implements UserDetailsManager {
 
     @Override
     public void updateUser(UserDetails userDetails) {
-
+        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+        System.out.println(customUserDetails.getUser().getLastname());
     }
 
     @Override

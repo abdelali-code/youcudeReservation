@@ -1,7 +1,5 @@
 package com.youcode.reservation.config;
 
-import com.youcode.reservation.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +12,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .formLogin()
                 .loginPage("/login")
@@ -24,11 +21,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .mvcMatchers("/","/admin", "/api/**")
-                .permitAll();
+                .mvcMatchers(("/singup"))
+                .anonymous();
         http
                 .logout()
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 .permitAll();
 //        static ressource
         http
@@ -36,13 +33,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/css/**", "/images/**")
                 .permitAll();
 
-        http.csrf().ignoringAntMatchers("/api/**");
+//        http
+//                .authorizeRequests()
+//                .mvcMatchers("/api/**")
+//                .hasAuthority("admin");
 
-        http.cors()
-                .and()
+//        http
+//                .authorizeRequests()
+//                .mvcMatchers("/admin-dashboard")
+//                .hasAuthority("admin");
+        http
+//                .cors()
+//                .and()
+                .authorizeRequests()
+                .mvcMatchers("/admin/**", "/api/**", "/admin-dashboard/**")
+                .hasAuthority("admin");
+
+        http
+                .authorizeRequests()
+                .mvcMatchers( "password/reset")
+                .permitAll();
+
+//        http
+//                .cors()
+//                .disable()
+//                .authorizeRequests()
+//                .anyRequest()
+//                .permitAll();
+
+//
+        http
                 .authorizeRequests()
                 .anyRequest()
-                .permitAll();
+                .authenticated();
+
+        //http.csrf().ignoringAntMatchers("/api/**");
     }
 
     @Bean

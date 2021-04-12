@@ -17,9 +17,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Size(min = 3, max = 45, message = "you firstname should be between 3 and 45 character")
+    @Size(min = 3, max = 45, message = "your firstname should be between 3 and 45 character")
     private String firstname;
-    @Size(min = 3, max = 45, message = "you lastname should be between 3 and 45 character")
+    @Size(min = 3, max = 45, message = "your lastname should be between 3 and 45 character")
     private String lastname;
     @Size(max = 45, message = "your email is too tall")
     @NotBlank(message = "email should not be empty")

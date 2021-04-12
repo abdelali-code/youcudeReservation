@@ -2,6 +2,7 @@ package com.youcode.reservation.repository;
 
 import com.youcode.reservation.model.Reservation;
 import com.youcode.reservation.model.ReservationType;
+import com.youcode.reservation.model.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -42,4 +44,14 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
      * */
     /**  id(reservation_Type) -> List<Reservation> */
     List<Reservation> findByReservationTypeIdAndDate(long id, Date date, Sort sort);
+
+    /**  get reservation less than the today date
+     * @param date*/
+    List<Reservation> getAllByDateEquals(Date date);
+
+
+    List<Reservation> findAllByDateLessThan(Date date);
+    List<Reservation> findAllByDateGreaterThanOrDateEquals(Date date, Date date2);
+
+    Reservation findByDateAndUserAndReservationType(Date date, User user, ReservationType reservationType);
 }

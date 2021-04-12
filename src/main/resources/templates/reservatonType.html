@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>admin</title>
+    <th:block th:include="shared/general.html :: headFile"/>
+</head>
+<body>
+<header th:replace="shared/general.html :: header"> </header>
+<main class="pageMain">
+    <div class="container">
+        <nav th:replace="shared/adminTemplate.html :: adminHeader"></nav>
+    </div>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <table class="table table-hover mt-4">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="p-2">reservation Name</th>
+                        <th scope="col" class="p-2">reservation Size</th>
+                        <th scope="col" class="p-2">action</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="resrvationType : ${resType}">
+                    <tr>
+                        <td th:text="${resrvationType.name}"></td>
+                        <td th:text="${resrvationType.size}"></td>
+                        <td class="d-flex">
+<!--                            <form method="POST" th:action="@{/admin-dashboard/reservation-type/update}">-->
+<!--                                <input type="hidden" th:value="${resrvationType.id}" name="id"/>-->
+                                <a class="btn check" th:href="@{${'/admin-dashboard/reservation-type/update/' + resrvationType.id}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+<!--                            </form>-->
+                            <form method="POST" th:action="@{/admin-dashboard/reservation-type/delete}">
+                                <input type="hidden" th:value="${resrvationType.id}" name="id"/>
+                                <button type="submit" class="btn remove">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <form th:action="@{/admin-dashboard/reservation-type/add}" method="post" th:object="${reservationTypeEntity}" class="mt-4">
+                    <div class="form-group">
+                        <h4 class="text-center">add New reservation type</h4>
+                        <label class="form-label textBold" for="name">name</label>
+                        <input th:field="*{name}" type="text" class="form-control" placeholder="reservation type name"/>
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></p>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label textBold" for="size">size</label>
+                        <input th:field="*{size}" type="number" class="form-control" placeholder="reservation type size"/>
+                        <p th:if="${#fields.hasErrors('size')}" th:errors="*{size}" class="errors"></p>
+
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mt-3 full-width main-background">add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</main>
+<footer th:replace="shared/general.html :: footer" class="text-center"></footer>
+</body>
+</html>
+
+

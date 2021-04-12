@@ -1,27 +1,33 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+    //<li><a class="dropdown-item" href="#">Action</a></li>
     const elem = document.getElementById("profileLink");
-    const notificationDropdown = document.getElementById("notificationDropdown");
-    elem.addEventListener("click", function () {
+    const notificationDropdown = document.getElementById("dropDownNotification");
+
+    notificationDropdown.addEventListener("click", function () {
         fetch("/notification")
             .then((result) => {
                 if (result.status) {
                     return result.json();
                 }else {
-                    throw new Error("somethig bad happen try again or try later");
+                    throw new Error("somethig bad happen try again");
                 }
             })
             .then((data) => {
-                const node = document.createElement("ul");
-                node.classList.add("dropdown-menu");
+                const notificationList = document.getElementById("notificationList");
+                notificationList.innerHTML = "";
                 data.forEach(dt => {
-                    const node = document.createElement("li");
-                    node.classList.add("dropdown-item");
+                    const li = document.createElement("li");
+                    li.classList.add("notif")
+                    const a = document.createElement("li");
+                    a.classList.add("dropdown-item");
                     const tem = document.createTextNode(dt.content);
-                    node.appendChild(tem);
-                    notificationDropdown.appendChild(node);
+                    a.appendChild(tem);
+                    li.appendChild(a);
+                    notificationList.appendChild(li);
                 })
             })
     })
+
 });
 
 

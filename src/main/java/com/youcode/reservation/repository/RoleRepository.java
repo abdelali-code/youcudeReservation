@@ -6,6 +6,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.Set;
 
-public interface RoleRepository extends JpaRepository<Role, Repository> {
-    Set<Role> getRoleByName(String name);
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+    //Set<Role> getRoleByName(String name);
+    Role getRoleByName(String name);
 }

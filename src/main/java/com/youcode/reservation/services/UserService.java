@@ -3,9 +3,11 @@ package com.youcode.reservation.services;
 
 import com.youcode.reservation.gravatarGenerator.Gravatar;
 import com.youcode.reservation.model.Email;
+import com.youcode.reservation.model.Role;
 import com.youcode.reservation.model.TempUser;
 import com.youcode.reservation.model.User;
 import com.youcode.reservation.repository.EmailRepository;
+import com.youcode.reservation.repository.RoleRepository;
 import com.youcode.reservation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,22 +17,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import javax.persistence.Access;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private EmailRepository emailRepository;
+
 
     public User addUser(User user) {
         /** crybt password */
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String gravatar = Gravatar.md5Hex(user.getEmail());
+        user.setGravatar(gravatar);
         return userRepository.save(user);
     }
 
@@ -42,12 +48,19 @@ public class UserService {
         }
         userRepository.saveAll(users);
     }
+    /** get all user */
+    public List<User> getAllApprenant() {
+        return userRepository.findAllByRoles_Name("apprenant");
+    }
 
     private boolean checkValidationOfEmail(String email) {
         return emailRepository.existsByEmail(email);
     }
 
 
+    public void removeUser(long id) {
+        userRepository.deleteById(id);
+    }
 
 
 
@@ -91,8 +104,6 @@ public class UserService {
         }
         return null;
     }
-
-
 
 
 }

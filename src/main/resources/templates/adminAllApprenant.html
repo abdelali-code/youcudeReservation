@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>admin</title>
+    <th:block th:include="shared/general.html :: headFile"/>
+</head>
+<body>
+<header th:replace="shared/general.html :: header"> </header>
+<main class="pageMain">
+    <div class="container">
+        <nav th:replace="shared/adminTemplate.html :: adminHeader"></nav>
+        <div class="reservation-table">
+            <table class="table mt-4">
+                <thead class="table-head">
+                <tr>
+                    <th scope="col" class="p-2">firstname</th>
+                    <th scope="col" class="p-2">lastname</th>
+                    <th scope="col" class="p-2">email</th>
+                    <th scope="col">action</th>
+                </tr>
+                </thead>
+                <tbody th:each="user : ${allUsers}">
+                <tr>
+                    <td th:text="${user.firstname}"></td>
+                    <td th:text="${user.lastname}">Otto</td>
+                    <td th:text="${user.email}"></td>
+                    <td class="d-flex">
+                        <form method="post" th:action="@{/admin-dashboard/users/delete}">
+                            <input type="hidden" th:value="${user.id}" name="id"/>
+                            <button type="submit" class="btn remove">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<footer th:replace="shared/general.html :: footer" class="text-center"></footer>
+</body>
+</html>
+

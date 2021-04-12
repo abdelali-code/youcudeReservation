@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>admin</title>
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.15.3/css/all.css}" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <th:block th:include="shared/general.html :: headFile"/>
+</head>
+<body>
+<header th:replace="shared/general.html :: header"> </header>
+    <main class="pageMain ">
+            <nav class="nav nav-pills flex-column flex-sm-row secondary-navbar" th:fragment="adminHeader">
+                <a th:class="'flex-sm-fill text-sm-center nav-link '+${currentActivepage eq 1 ? 'active' : ''}" th:href="@{/admin-dashboard}">
+                    <i class="fas fa-user-plus nav-icon" ></i>
+                    <span class="nav-title">wait users</span>
+                </a>
+
+                <a th:class="'flex-sm-fill text-sm-center nav-link '+${currentActivepage eq 0 ? 'active' : ''}" th:href="@{/admin-dashboard/all-reseravations}">
+                    <i class="fas fa-list-alt nav-icon" ></i>
+                    <span class="nav-title">reservation</span>
+                </a>
+
+                <a th:class="'flex-sm-fill text-sm-center nav-link '+${currentActivepage eq 2 ? 'active' : ''}"  th:href="@{/admin-dashboard/current-reservation}">
+                    <i class="fas fa-th-list nav-icon" ></i>
+                    <span class="nav-title">current reservation</span>
+                </a>
+                <a th:class="'flex-sm-fill text-sm-center nav-link '+${currentActivepage eq 3 ? 'active' : ''}" th:href="@{/admin-dashboard/users}">
+                    <i class="fas fa-users nav-icon" ></i>
+                    <span class="nav-title">users</span>
+                </a>
+                <a th:class="'flex-sm-fill text-sm-center nav-link '+${currentActivepage eq 4 ? 'active' : ''}" th:href="@{/admin-dashboard/users-refuser}">
+                    <i class="fas fa-users-slash nav-icon" ></i>
+                    <span class="nav-title">refuser users</span>
+                </a>
+                <a th:class="'flex-sm-fill text-sm-center nav-link '+${currentActivepage eq 5 ? 'active' : ''}" th:href="@{/admin-dashboard/reservation-type}">
+                    <i class="fas fa-th-list nav-icon" ></i>
+                    <span class="nav-title">reservation type</span>
+                </a>
+            </nav>
+    </main>
+<footer th:replace="shared/general.html :: footer" class="text-center"></footer>
+</body>
+</html>

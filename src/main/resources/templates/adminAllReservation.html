@@ -1,0 +1,40 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>admin</title>
+    <th:block th:include="shared/general.html :: headFile"/>
+</head>
+<body>
+<header th:replace="shared/general.html :: header"> </header>
+<main class="pageMain">
+    <div class="container">
+        <nav th:replace="shared/adminTemplate.html :: adminHeader"></nav>
+        <div class="reservation-table">
+            <h3 class="py-3">Reservation historique</h3>
+            <table class="table mt-4">
+                <thead class="table-head">
+                <tr>
+                    <th scope="col" class="p-2">firstname</th>
+                    <th scope="col" class="p-2">lastname</th>
+                    <th scope="col" class="p-2">email</th>
+                    <th scope="col" class="p-2">date</th>
+                    <th scope="col" class="p-2">period</th>
+                </tr>
+                </thead>
+                <tbody th:each="res : ${allRes}" class="table-body">
+                <tr>
+                    <td th:text="${res.user.firstname}">Otto</td>
+                    <td th:text="${res.user.lastname}"></td>
+                    <td th:text="${res.user.email}"></td>
+                    <td th:text="${res.date}"></td>
+                    <td th:text="${res.reservationType.name}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<footer th:replace="shared/general.html :: footer" class="text-center"></footer>
+</body>
+</html>

@@ -19,12 +19,13 @@ public class TaskExecutorReservator {
     private ReservationService reservationService;
 
 
-    @Scheduled(fixedDelay = 3600000) //3600000
+    @Scheduled(fixedDelay = 3600) //36000
     public void scheduleFixedDelayTask() {
         LocalDateTime localDateTime = LocalDateTime.now();
         int hourNow = localDateTime.getHour();
-        if (hourNow == 12) {
+        if (hourNow == 23) {
             reservationService.getReservationByReservationType();
         }
+        /** after excuted for the first time we should sleep for a day of time */
     }
 }

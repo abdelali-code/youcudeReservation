@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface TempUserRepository extends JpaRepository<TempUser, Long> {
+
+    List<TempUser> findAllByIsEvaluated(boolean val);
     @Transactional
     void deleteAllByIdIn(List<Long> ids);
 

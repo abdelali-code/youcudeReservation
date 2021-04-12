@@ -28,8 +28,8 @@ public class TempUser {
     @Size(min = 6, max = 255, message = "password length should be 6 character or more")
     @JsonIgnore
     private String password;
-    @Column(name = "num_presence")
-    private int numPresence;
+    @Column(name = "is_evaluated")
+    private boolean isEvaluated;
 
     @Transient
     private String confirmPassword;
@@ -92,6 +92,13 @@ public class TempUser {
         this.id = id;
     }
 
+    public boolean isEvaluated() {
+        return isEvaluated;
+    }
+
+    public void setEvaluated(boolean evaluated) {
+        isEvaluated = evaluated;
+    }
 
     /** create User from Temp User */
     public User createUser(){

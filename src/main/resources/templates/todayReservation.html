@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>admin</title>
+    <th:block th:include="shared/general.html :: headFile"/>
+</head>
+<body>
+<header th:replace="shared/general.html :: header"> </header>
+<main class="pageMain">
+    <div class="container">
+        <nav th:replace="shared/adminTemplate.html :: adminHeader"></nav>
+
+        <table class="table table-hover mt-4">
+            <thead>
+            <tr>
+                <th scope="col" class="p-2">firstname</th>
+                <th scope="col" class="p-2">lastname</th>
+                <th scope="col" class="p-2">email</th>
+                <th scope="col" class="p-2">reservation type</th>
+                <th scope="col" class="p-2">date</th>
+                <th scope="col" class="p-2">action</th>
+            </tr>
+            </thead>
+            <tbody th:each="reservation : ${todayReservation}">
+            <tr>
+                <td th:text="${reservation.user.firstname}"></td>
+                <td th:text="${reservation.user.lastname}">Otto</td>
+                <td th:text="${reservation.user.email}"></td>
+                <td th:text="${reservation.reservationType.name}"></td>
+                <td th:text="${reservation.date}"></td>
+                <td class="d-flex" th:if="${!reservation.isAccepted()}">
+                    <form method="POST" th:action="@{/admin-dashboard/accepter-reservation}">
+                        <input type="hidden" th:value="${reservation.id}" name="id"/>
+                        <button type="submit" class="btn check">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </form>
+                    <form method="post" th:action="@{/admin-dashboard/delete-reservation}">
+                        <input type="hidden" th:value="${reservation.id}" name="id"/>
+                        <button type="submit" class="btn remove">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+                <td th:unless="${!reservation.isAccepted()}">
+                    <form method="post" th:action="@{/admin-dashboard/delete-reservation}">
+                        <input type="hidden" th:value="${reservation.id}" name="id"/>
+                        accepted:
+                        <button type="submit" class="btn remove">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="shared/general.html :: footer" class="text-center"></footer>
+</body>
+</html>
