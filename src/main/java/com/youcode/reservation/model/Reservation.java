@@ -25,6 +25,7 @@ public class Reservation {
     @Column(name = "is_accepted")
     private boolean isAccepted = false;
 
+    /** will not persist in the database */
     @Transient
     private DayOfWeek day;
 
